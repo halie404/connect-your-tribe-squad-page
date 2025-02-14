@@ -1,10 +1,41 @@
-{% render 'partials/head.liquid', title: 'Squad page' %}
+{% render 'partials/head.liquid' %}
 
-<h2>Students</h2>
-<ul>
-  {% for person in persons %}
-    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
-  {% endfor %}
-</ul>
+<div class="students">
+  <div class="wrapper">
+  <h1>FDND Squad 1G</h1>
+  <h2>2024-2025</h2>
+  
+</div>
+<hr>
+  
+  <p class="intro-text">Wanneer is Squad 1G het meest energiek? Ontdek het hier!</p>
 
-{% render 'partials/foot.liquid', squads: squads %}
+  <div class="filter-buttons">
+    <button onclick="filterStudents('morning')">Morning</button>
+    <button onclick="filterStudents('evening')">Evening</button>
+    <button onclick="filterStudents('both')">Both</button>
+    <button onclick="filterStudents('all')">Show All</button>
+  </div>
+
+  <div class="students-list">
+    {% for person in persons %}
+      <div class="student" data-energy="{{ person.most_energy }}">
+        
+        <img src="/assets/{{ person.id }}.png" alt="{{ person.name }}" />
+
+       
+        <p>Name: {{ person.name }}</p>
+        <p>Squad: {{ person.squads[0].squad_id.name }}</p>
+
+       
+        <p>Most Energy: 
+          {% if person.most_energy == 'morning' %} Morning
+          {% elsif person.most_energy == 'evening' %} Evening
+          {% elsif person.most_energy == 'both' %} Both
+          {% else %} Not specified
+          {% endif %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
